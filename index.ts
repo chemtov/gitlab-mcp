@@ -749,7 +749,7 @@ const allTools = [
     inputSchema: zodToJsonSchema(ExecuteGraphQLSchema),
   },
   {
-    name: "create_or_update_file",
+    name: "gitlab_create_or_update_file",
     description: "Create or update a single file in a GitLab project",
     inputSchema: toJSONSchema(CreateOrUpdateFileSchema),
   },
@@ -764,7 +764,7 @@ const allTools = [
     inputSchema: toJSONSchema(CreateRepositorySchema),
   },
   {
-    name: "get_file_contents",
+    name: "gitlab_get_file_contents",
     description: "Get the contents of a file or directory from a GitLab project",
     inputSchema: toJSONSchema(GetFileContentsSchema),
   },
@@ -774,7 +774,7 @@ const allTools = [
     inputSchema: toJSONSchema(PushFilesSchema),
   },
   {
-    name: "create_issue",
+    name: "gitlab_create_issue",
     description: "Create a new issue in a GitLab project",
     inputSchema: toJSONSchema(CreateIssueSchema),
   },
@@ -784,12 +784,12 @@ const allTools = [
     inputSchema: toJSONSchema(CreateMergeRequestSchema),
   },
   {
-    name: "fork_repository",
+    name: "gitlab_fork_repository",
     description: "Fork a GitLab project to your account or specified namespace",
     inputSchema: toJSONSchema(ForkRepositorySchema),
   },
   {
-    name: "create_branch",
+    name: "gitlab_create_branch",
     description: "Create a new branch in a GitLab project",
     inputSchema: toJSONSchema(CreateBranchSchema),
   },
@@ -953,12 +953,12 @@ const allTools = [
     inputSchema: toJSONSchema(GetIssueSchema),
   },
   {
-    name: "update_issue",
+    name: "gitlab_update_issue",
     description: "Update an issue in a GitLab project",
     inputSchema: toJSONSchema(UpdateIssueSchema),
   },
   {
-    name: "delete_issue",
+    name: "gitlab_delete_issue",
     description: "Delete an issue from a GitLab project",
     inputSchema: toJSONSchema(DeleteIssueSchema),
   },
@@ -1023,7 +1023,7 @@ const allTools = [
     inputSchema: toJSONSchema(ListLabelsSchema),
   },
   {
-    name: "get_label",
+    name: "gitlab_get_label",
     description: "Get a single label from a project",
     inputSchema: toJSONSchema(GetLabelSchema),
   },
@@ -1201,7 +1201,7 @@ const allTools = [
     inputSchema: toJSONSchema(ListCommitsSchema),
   },
   {
-    name: "get_commit",
+    name: "gitlab_get_commit",
     description: "Get details of a specific commit",
     inputSchema: toJSONSchema(GetCommitSchema),
   },
@@ -1278,7 +1278,7 @@ const allTools = [
 const readOnlyTools = new Set([
   "gitlab_search_repositories",
   "execute_graphql",
-  "get_file_contents",
+  "gitlab_get_file_contents",
   "get_merge_request",
   "get_merge_request_diffs",
   "list_merge_request_versions",
@@ -1305,7 +1305,7 @@ const readOnlyTools = new Set([
   "get_pipeline_job",
   "get_pipeline_job_output",
   "list_labels",
-  "get_label",
+  "gitlab_get_label",
   "list_group_projects",
   "get_repository_tree",
   "list_milestones",
@@ -1317,7 +1317,7 @@ const readOnlyTools = new Set([
   "get_wiki_page",
   "get_users",
   "gitlab_list_commits",
-  "get_commit",
+  "gitlab_get_commit",
   "get_commit_diff",
   "list_group_iterations",
   "get_group_iteration",
@@ -5488,7 +5488,7 @@ async function handleToolCall(params: any) {
           clearTimeout(timeout);
         }
       }
-      case "fork_repository": {
+      case "gitlab_fork_repository": {
         if (GITLAB_PROJECT_ID) {
           throw new Error("Direct project ID is set. So fork_repository is not allowed");
         }
@@ -5515,7 +5515,7 @@ async function handleToolCall(params: any) {
         }
       }
 
-      case "create_branch": {
+      case "gitlab_create_branch": {
         const args = CreateBranchSchema.parse(params.arguments);
         let ref = args.ref;
         if (!ref) {
@@ -5560,7 +5560,7 @@ async function handleToolCall(params: any) {
         };
       }
 
-      case "get_file_contents": {
+      case "gitlab_get_file_contents": {
         const args = GetFileContentsSchema.parse(params.arguments);
         const contents = await getFileContents(args.project_id, args.file_path, args.ref);
         return {
@@ -5568,7 +5568,7 @@ async function handleToolCall(params: any) {
         };
       }
 
-      case "create_or_update_file": {
+      case "gitlab_create_or_update_file": {
         const args = CreateOrUpdateFileSchema.parse(params.arguments);
         const result = await createOrUpdateFile(
           args.project_id,
@@ -5598,7 +5598,7 @@ async function handleToolCall(params: any) {
         };
       }
 
-      case "create_issue": {
+      case "gitlab_create_issue": {
         const args = CreateIssueSchema.parse(params.arguments);
         const { project_id, ...options } = args;
         const issue = await createIssue(project_id, options);
@@ -6150,7 +6150,7 @@ async function handleToolCall(params: any) {
         };
       }
 
-      case "update_issue": {
+      case "gitlab_update_issue": {
         const args = UpdateIssueSchema.parse(params.arguments);
         const { project_id, issue_iid, ...options } = args;
         const issue = await updateIssue(project_id, issue_iid, options);
@@ -6159,7 +6159,7 @@ async function handleToolCall(params: any) {
         };
       }
 
-      case "delete_issue": {
+      case "gitlab_delete_issue": {
         const args = DeleteIssueSchema.parse(params.arguments);
         await deleteIssue(args.project_id, args.issue_iid);
         return {
@@ -6244,7 +6244,7 @@ async function handleToolCall(params: any) {
         };
       }
 
-      case "get_label": {
+      case "gitlab_get_label": {
         const args = GetLabelSchema.parse(params.arguments);
         const label = await getLabel(args.project_id, args.label_id, args.include_ancestor_groups);
         return {
@@ -6668,7 +6668,7 @@ async function handleToolCall(params: any) {
         };
       }
 
-      case "get_commit": {
+      case "gitlab_get_commit": {
         const args = GetCommitSchema.parse(params.arguments);
         const commit = await getCommit(args.project_id, args.sha, args.stats);
         return {

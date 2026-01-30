@@ -451,15 +451,15 @@ The token is stored per session (identified by `mcp-session-id` header) and reus
 <!-- TOOLS-START -->
 
 1. `merge_merge_request` - Merge a merge request in a GitLab project
-2. `create_or_update_file` - Create or update a single file in a GitLab project
+2. `gitlab_create_or_update_file` - Create or update a single file in a GitLab project
 3. `gitlab_search_repositories` - Search for GitLab projects
 4. `gitlab_create_repository` - Create a new GitLab project
-5. `get_file_contents` - Get the contents of a file or directory from a GitLab project
+5. `gitlab_get_file_contents` - Get the contents of a file or directory from a GitLab project
 6. `gitlab_push_files` - Push multiple files to a GitLab project in a single commit
-7. `create_issue` - Create a new issue in a GitLab project
+7. `gitlab_create_issue` - Create a new issue in a GitLab project
 8. `create_merge_request` - Create a new merge request in a GitLab project
-9. `fork_repository` - Fork a GitLab project to your account or specified namespace
-10. `create_branch` - Create a new branch in a GitLab project
+9. `gitlab_fork_repository` - Fork a GitLab project to your account or specified namespace
+10. `gitlab_create_branch` - Create a new branch in a GitLab project
 11. `get_merge_request` - Get details of a merge request (Either mergeRequestIid or branchName must be provided)
 12. `get_merge_request_diffs` - Get the changes/diffs of a merge request (Either mergeRequestIid or branchName must be provided)
 13. `list_merge_request_diffs` - List merge request diffs with pagination support (Either mergeRequestIid or branchName must be provided)
@@ -482,8 +482,8 @@ The token is stored per session (identified by `mcp-session-id` header) and reus
 30. `gitlab_list_issues` - List issues (default: created by current user only; use scope='all' for all accessible issues)
 31. `my_issues` - List issues assigned to the authenticated user (defaults to open issues)
 32. `get_issue` - Get details of a specific issue in a GitLab project
-33. `update_issue` - Update an issue in a GitLab project
-34. `delete_issue` - Delete an issue from a GitLab project
+33. `gitlab_update_issue` - Update an issue in a GitLab project
+34. `gitlab_delete_issue` - Delete an issue from a GitLab project
 35. `list_issue_links` - List all issue links for a specific issue
 36. `list_issue_discussions` - List discussions for an issue in a GitLab project
 37. `get_issue_link` - Get a specific issue link
@@ -496,7 +496,7 @@ The token is stored per session (identified by `mcp-session-id` header) and reus
 44. `list_projects` - List projects accessible by the current user
 45. `list_project_members` - List members of a GitLab project
 46. `list_labels` - List labels for a project
-47. `get_label` - Get a single label from a project
+47. `gitlab_get_label` - Get a single label from a project
 48. `create_label` - Create a new label in a project
 49. `update_label` - Update an existing label in a project
 50. `delete_label` - Delete a label from a project
@@ -531,7 +531,7 @@ The token is stored per session (identified by `mcp-session-id` header) and reus
 79. `get_milestone_burndown_events` - Get burndown events for a specific milestone
 80. `get_users` - Get GitLab user details by usernames
 81. `gitlab_list_commits` - List repository commits with filtering options
-82. `get_commit` - Get details of a specific commit
+82. `gitlab_get_commit` - Get details of a specific commit
 83. `get_commit_diff` - Get changes/diffs of a specific commit
 84. `list_group_iterations` - List group iterations with filtering options
 85. `upload_markdown` - Upload a file to a GitLab project for use in markdown content
