@@ -452,10 +452,10 @@ The token is stored per session (identified by `mcp-session-id` header) and reus
 
 1. `merge_merge_request` - Merge a merge request in a GitLab project
 2. `create_or_update_file` - Create or update a single file in a GitLab project
-3. `search_repositories` - Search for GitLab projects
-4. `create_repository` - Create a new GitLab project
+3. `gitlab_search_repositories` - Search for GitLab projects
+4. `gitlab_create_repository` - Create a new GitLab project
 5. `get_file_contents` - Get the contents of a file or directory from a GitLab project
-6. `push_files` - Push multiple files to a GitLab project in a single commit
+6. `gitlab_push_files` - Push multiple files to a GitLab project in a single commit
 7. `create_issue` - Create a new issue in a GitLab project
 8. `create_merge_request` - Create a new merge request in a GitLab project
 9. `fork_repository` - Fork a GitLab project to your account or specified namespace
@@ -479,7 +479,7 @@ The token is stored per session (identified by `mcp-session-id` header) and reus
 27. `bulk_publish_draft_notes` - Publish all draft notes for a merge request
 28. `update_issue_note` - Modify an existing issue thread note
 29. `create_issue_note` - Add a new note to an existing issue thread
-30. `list_issues` - List issues (default: created by current user only; use scope='all' for all accessible issues)
+30. `gitlab_list_issues` - List issues (default: created by current user only; use scope='all' for all accessible issues)
 31. `my_issues` - List issues assigned to the authenticated user (defaults to open issues)
 32. `get_issue` - Get details of a specific issue in a GitLab project
 33. `update_issue` - Update an issue in a GitLab project
@@ -530,7 +530,7 @@ The token is stored per session (identified by `mcp-session-id` header) and reus
 78. `promote_milestone` - Promote a milestone to the next stage
 79. `get_milestone_burndown_events` - Get burndown events for a specific milestone
 80. `get_users` - Get GitLab user details by usernames
-81. `list_commits` - List repository commits with filtering options
+81. `gitlab_list_commits` - List repository commits with filtering options
 82. `get_commit` - Get details of a specific commit
 83. `get_commit_diff` - Get changes/diffs of a specific commit
 84. `list_group_iterations` - List group iterations with filtering options
@@ -538,7 +538,7 @@ The token is stored per session (identified by `mcp-session-id` header) and reus
 86. `download_attachment` - Download an uploaded file from a GitLab project by secret and filename
 87. `list_events` - List all events for the currently authenticated user
 88. `get_project_events` - List all visible events for a specified project
-89. `list_releases` - List all releases for a project
+89. `gitlab_list_releases` - List all releases for a project
 90. `get_release` - Get a release by tag name
 91. `create_release` - Create a new release in a GitLab project
 92. `update_release` - Update an existing release in a GitLab project

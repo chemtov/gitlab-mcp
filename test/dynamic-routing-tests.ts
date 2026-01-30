@@ -405,13 +405,13 @@ function createMockTreeItem(id: string) {
 async function validateToolCalls(client: CustomHeaderClient, mockServer: MockGitLabServer, expectedToken: string) {
   const toolsToTest = [
     { name: 'get_project', params: { project_id: '1' } },
-    { name: 'list_issues', params: { project_id: '1' } },
+    { name: 'gitlab_list_issues', params: { project_id: '1' } },
     { name: 'get_merge_request', params: { project_id: '1', merge_request_iid: '1' } },
     { name: 'list_merge_requests', params: { project_id: '1' } },
     { name: 'get_repository_tree', params: { project_id: '1' } },
     { name: 'list_labels', params: { project_id: '1' } },
     { name: 'list_pipelines', params: { project_id: '1' } },
-    { name: 'list_commits', params: { project_id: '1' } },
+    { name: 'gitlab_list_commits', params: { project_id: '1' } },
   ];
 
   for (const tool of toolsToTest) {
@@ -425,7 +425,7 @@ async function validateToolCalls(client: CustomHeaderClient, mockServer: MockGit
         mockPath = '/projects/1';
         mockResponse = createMockProject(1, 'mock-response');
         break;
-      case 'list_issues':
+      case 'gitlab_list_issues':
         mockPath = '/projects/1/issues';
         mockResponse = [createMockIssue(1, 1)];
         break;
@@ -449,7 +449,7 @@ async function validateToolCalls(client: CustomHeaderClient, mockServer: MockGit
         mockPath = '/projects/1/pipelines';
         mockResponse = [createMockPipeline(1, 1)];
         break;
-      case 'list_commits':
+      case 'gitlab_list_commits':
         mockPath = '/projects/1/repository/commits';
         mockResponse = [createMockCommit('sha1')];
         break;

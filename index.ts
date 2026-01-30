@@ -754,12 +754,12 @@ const allTools = [
     inputSchema: toJSONSchema(CreateOrUpdateFileSchema),
   },
   {
-    name: "search_repositories",
+    name: "gitlab_search_repositories",
     description: "Search for GitLab projects",
     inputSchema: toJSONSchema(SearchRepositoriesSchema),
   },
   {
-    name: "create_repository",
+    name: "gitlab_create_repository",
     description: "Create a new GitLab project",
     inputSchema: toJSONSchema(CreateRepositorySchema),
   },
@@ -769,7 +769,7 @@ const allTools = [
     inputSchema: toJSONSchema(GetFileContentsSchema),
   },
   {
-    name: "push_files",
+    name: "gitlab_push_files",
     description: "Push multiple files to a GitLab project in a single commit",
     inputSchema: toJSONSchema(PushFilesSchema),
   },
@@ -937,7 +937,7 @@ const allTools = [
     inputSchema: toJSONSchema(CreateIssueNoteSchema),
   },
   {
-    name: "list_issues",
+    name: "gitlab_list_issues",
     description:
       "List issues (default: created by current user only; use scope='all' for all accessible issues)",
     inputSchema: toJSONSchema(ListIssuesSchema),
@@ -1196,7 +1196,7 @@ const allTools = [
     inputSchema: toJSONSchema(GetUsersSchema),
   },
   {
-    name: "list_commits",
+    name: "gitlab_list_commits",
     description: "List repository commits with filtering options",
     inputSchema: toJSONSchema(ListCommitsSchema),
   },
@@ -1238,7 +1238,7 @@ const allTools = [
     inputSchema: toJSONSchema(GetProjectEventsSchema),
   },
   {
-    name: "list_releases",
+    name: "gitlab_list_releases",
     description: "List all releases for a project",
     inputSchema: toJSONSchema(ListReleasesSchema),
   },
@@ -1276,7 +1276,7 @@ const allTools = [
 
 // Define which tools are read-only
 const readOnlyTools = new Set([
-  "search_repositories",
+  "gitlab_search_repositories",
   "execute_graphql",
   "get_file_contents",
   "get_merge_request",
@@ -1285,7 +1285,7 @@ const readOnlyTools = new Set([
   "get_merge_request_version",
   "get_branch_diffs",
   "mr_discussions",
-  "list_issues",
+  "gitlab_list_issues",
   "my_issues",
   "list_merge_requests",
   "get_issue",
@@ -1316,7 +1316,7 @@ const readOnlyTools = new Set([
   "list_wiki_pages",
   "get_wiki_page",
   "get_users",
-  "list_commits",
+  "gitlab_list_commits",
   "get_commit",
   "get_commit_diff",
   "list_group_iterations",
@@ -1324,7 +1324,7 @@ const readOnlyTools = new Set([
   "download_attachment",
   "list_events",
   "get_project_events",
-  "list_releases",
+  "gitlab_list_releases",
   "get_release",
   "download_release_asset",
   "get_merge_request_approval_state",
@@ -5541,7 +5541,7 @@ async function handleToolCall(params: any) {
         };
       }
 
-      case "search_repositories": {
+      case "gitlab_search_repositories": {
         const args = SearchRepositoriesSchema.parse(params.arguments);
         const results = await searchProjects(args.search, args.page, args.per_page);
         return {
@@ -5549,7 +5549,7 @@ async function handleToolCall(params: any) {
         };
       }
 
-      case "create_repository": {
+      case "gitlab_create_repository": {
         if (GITLAB_PROJECT_ID) {
           throw new Error("Direct project ID is set. So fork_repository is not allowed");
         }
@@ -5585,7 +5585,7 @@ async function handleToolCall(params: any) {
         };
       }
 
-      case "push_files": {
+      case "gitlab_push_files": {
         const args = PushFilesSchema.parse(params.arguments);
         const result = await createCommit(
           args.project_id,
@@ -6125,7 +6125,7 @@ async function handleToolCall(params: any) {
         };
       }
 
-      case "list_issues": {
+      case "gitlab_list_issues": {
         const args = ListIssuesSchema.parse(params.arguments);
         const { project_id, ...options } = args;
         const issues = await listIssues(project_id, options);
@@ -6660,7 +6660,7 @@ async function handleToolCall(params: any) {
         };
       }
 
-      case "list_commits": {
+      case "gitlab_list_commits": {
         const args = ListCommitsSchema.parse(params.arguments);
         const commits = await listCommits(args.project_id, args);
         return {
@@ -6732,7 +6732,7 @@ async function handleToolCall(params: any) {
         };
       }
 
-      case "list_releases": {
+      case "gitlab_list_releases": {
         const args = ListReleasesSchema.parse(params.arguments);
         const { project_id, ...options } = args;
         const releases = await listReleases(project_id, options);
